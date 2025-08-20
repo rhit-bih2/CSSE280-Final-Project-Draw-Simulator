@@ -81,3 +81,19 @@ body {
 .add-button-plus:hover {
   color: #343a40;
 }
+
+#roseLogo{
+    max-width: 350px;
+    margin: auto;
+    display: block;
+}
+
+#rosefireButton {
+    display: block;
+    margin: 60px auto;
+    color: white;
+    background: #800000;
+    font-size: 1.1em;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
