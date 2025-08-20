@@ -6,6 +6,11 @@ rhit.FB_KEY_AUTHOR = "Author";
 rhit.FB_KEY_DECKNAME = "DeckName";
 rhit.FB_KEY_CARDS = "Cards";
 
+rhit.fbAuthManager = null;
+rhit.fbDecksManager = null;
+rhit.fbSingleDeckManager = null;
+
+
 
 
 function htmlToElement(html) {
