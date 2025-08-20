@@ -50,7 +50,7 @@ rhit.FbAuthManager = class {
 	}
 	signIn() {
 		console.log(`Sign in using Rosefire`);
-		Rosefire.signIn("ce9b0f24-714f-4100-8a96-d0be893544e5", (err, rfUser) => {
+		Rosefire.signIn("d3102d1c-50c1-44b0-b352-6b44f9c6a8e2", (err, rfUser) => {
 			if (err) {
 				console.log("Rosefire error!", err);
 				return;
@@ -88,23 +88,10 @@ rhit.FbAuthManager = class {
 //ListPage
 rhit.ListPageController = class {
 	constructor() {
-		// document.querySelector("#submitAddQuote").onclick = (event) => {
-		// };
-		document.querySelector("#submitAddQuote").addEventListener("click", (event) => {
-			const quote = document.querySelector("#inputQuote").value;
-			const movie = document.querySelector("#inputMovie").value;
-			rhit.fbMovieQuotesManager.add(quote, movie);
+		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
+			const Deck = document.querySelector("#inputDeck").value;
+			rhit.fbMovieDecksManager.add(Deck);
 		});
-
-		$('#addQuoteDialog').on('show.bs.modal', (event) => {
-			const quote = document.querySelector("#inputQuote").value = "";
-			const movie = document.querySelector("#inputMovie").value = "";
-		})
-
-		$('#addQuoteDialog').on('shown.bs.modal', (event) => {
-			document.querySelector("#inputQuote").focus();
-		})
-
 	}
 	updateList() { }
 }
