@@ -17,6 +17,21 @@ rhit.functionName = function () {
 	/** function body */
 };
 
+signIn() = function () {
+	// Please note this needs to be the result of a user interaction
+	// (like a button click) otherwise it will get blocked as a popup
+	Rosefire.signIn("<REGISTRY_TOKEN>", (err, rfUser) => {
+		if (err) {
+			console.log("Rosefire error!", err);
+			return;
+		}
+		console.log("Rosefire success!", rfUser);
+
+		// TODO: Use the rfUser.token with your server.
+	});
+
+};
+
 rhit.ClassName = class {
 	constructor() {
 
