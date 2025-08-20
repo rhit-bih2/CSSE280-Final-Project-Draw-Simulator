@@ -24,3 +24,60 @@ body {
     opacity: 0.8;
     transform: translateY(2px);
 }
+
+.dropdown-menu-right{
+    left: -128px;
+}
+
+.bmd-layout-content {
+    height: 100vh;
+}
+
+.bmd-layout-drawer>header{
+    background-color: #800000;
+    color: white;
+}
+
+.bmd-layout-drawer>ul{
+    background-color: #ddd;
+}
+
+.list-group-item :first-child{
+    margin-right: 0.75rem;
+}
+
+.navbar-dark .navbar-toggler{
+    border-color: transparent;
+}
+
+.card-header {
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.list-group-item.deck-item {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  cursor: pointer;
+}
+
+.list-group-item.deck-add-btn {
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-bottom: none;
+}
+
+.add-button-plus {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #6c757d;
+  text-decoration: none;
+  display: block;
+}
+
+.add-button-plus:hover {
+  color: #343a40;
+}
