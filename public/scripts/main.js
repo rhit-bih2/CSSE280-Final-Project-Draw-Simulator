@@ -18,19 +18,27 @@ rhit.functionName = function () {
 };
 
 signIn() = function () {
-	// Please note this needs to be the result of a user interaction
-	// (like a button click) otherwise it will get blocked as a popup
-	Rosefire.signIn("<REGISTRY_TOKEN>", (err, rfUser) => {
+	Rosefire.signIn("75ad617a-b1fd-4aaf-bce2-0f950c60c240", (err, rfUser) => {
 		if (err) {
 			console.log("Rosefire error!", err);
 			return;
 		}
 		console.log("Rosefire success!", rfUser);
 
-		// TODO: Use the rfUser.token with your server.
+
 	});
 
 };
+
+firebase.auth().signInWithCustomToken(rfUser.token).catch(function(error) {
+	const errorCode = error.code;
+	const errorMessage = error.message;
+	if (errorCode === 'auth/invalid-custom-token') {
+		alert('The token you provided is not valid.');
+	} else {
+		console.error("Custom auth error", errorCode, errorMessage);
+	}
+});
 
 rhit.ClassName = class {
 	constructor() {
