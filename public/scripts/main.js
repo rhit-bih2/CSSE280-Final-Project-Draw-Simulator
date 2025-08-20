@@ -88,11 +88,25 @@ rhit.FbAuthManager = class {
 //ListPage
 rhit.ListPageController = class {
 	constructor() {
+		// document.querySelector("#submitAddQuote").onclick = (event) => {
+		// };
+		document.querySelector("#submitAddQuote").addEventListener("click", (event) => {
+			const quote = document.querySelector("#inputQuote").value;
+			const movie = document.querySelector("#inputMovie").value;
+			rhit.fbMovieQuotesManager.add(quote, movie);
+		});
+
+		$('#addQuoteDialog').on('show.bs.modal', (event) => {
+			const quote = document.querySelector("#inputQuote").value = "";
+			const movie = document.querySelector("#inputMovie").value = "";
+		})
+
+		$('#addQuoteDialog').on('shown.bs.modal', (event) => {
+			document.querySelector("#inputQuote").focus();
+		})
 
 	}
-	updateList() {
-
-	}
+	updateList() { }
 }
 
 rhit.FbDecksManager = class {
