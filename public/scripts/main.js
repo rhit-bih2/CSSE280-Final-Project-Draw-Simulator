@@ -112,7 +112,7 @@ rhit.ListPageController = class {
 		  <div class="card">
 			<div class="card-body">
 			  <h5 class="card-title">${deckName}</h5>
-			  <h6 class="card-subtitle mb-2 text-muted">${rhit.FbAuthManager.uid}</h6>
+			  <h6 class="card-subtitle mb-2 text-muted">${rhit.fbAuthManager.uid}</h6>
 			</div>
 		  </div>
 		`);
@@ -121,16 +121,16 @@ rhit.ListPageController = class {
 	updateList() {
 		console.log("I need to update the list on the page!");
 		console.log(`Num decks = ${rhit.fbDecksManager.length}`);
-		console.log("Example deck = ", rhit.FbDecksManager.getDeckAtIndex(0));
+		console.log("Example deck = ", rhit.fbDecksManager.getDeckAtIndex(0));
 
 		const newList = htmlToElement('<div id="deckListContainer"></div>');
 
-		for (let i = 0; i < rhit.fbMovieQuotesManager.length; i++) {
-			const mq = rhit.FbDecksManager.getDeckAtIndex(i);
-			const newCard = this._createCard(mq);
+		for (let i = 0; i < rhit.fbDecksManager.length; i++) {
+			const d = rhit.fbDecksManager.getDeckAtIndex(i);
+			const newCard = this._createCard(d);
 
 			newCard.onclick = (event) => {
-				window.location.href = `/moviequote.html?id=${mq.id}`;
+				window.location.href = `/moviequote.html?id=${d.id}`;
 			};
 			newList.appendChild(newCard);
 		}
