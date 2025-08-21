@@ -14,13 +14,13 @@
 
     <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
         <header class="bmd-layout-header">
-            <nav class="navbar navbar-dark bg-faded fixed-top justify-content-start">
+            <div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
                 <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
                     <span class="sr-only">Toggle drawer</span>
                     <i class="material-icons">menu</i>
                 </button>
                 <a class="navbar-brand" href="#">&nbsp;&nbsp;Draw-Simulator</a>
-            </nav>
+            </div>
         </header>
         <div id="dw-s2" class="bmd-layout-drawer bg-faded">
             <header>
@@ -29,23 +29,42 @@
             <ul class="list-group">
                 <a id="menuShowAllDecks" class="list-group-item"><i class="material-icons">people_alt</i>Show all
                     decks</a>
-                <a id="menuShowMyDecks" class="list-group-item"><i class="material-icons">person</i>Show my decks</a>
+                <a id="menuShowMyDeck" class="list-group-item"><i class="material-icons">person</i>Show my decks</a>
                 <a id="menuSignOut" class="list-group-item"><i class="material-icons">login</i>Sign out</a>
             </ul>
         </div>
         <main class="bmd-layout-content">
-            <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addQuoteDialog">
-                <i class="material-icons">add</i>
-            </button>
             <div id="listPage" class="container page-container">
-                <div id="quoteListContainer"></div>
+                <div id="DeckListContainer"></div>
             </div>
         </main>
     </div>
 
-    <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addQuoteDialog">
+    <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addDeck">
         <i class="material-icons">add</i>
     </button>
+
+    <div class="modal fade" id="addDeck" tabindex="-1" role="dialog" aria-labelledby="Add deck"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Deck</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group bmd-form-group">
+                        <label for="inputDeck">Deck</label>
+                        <input type="text" class="form-control" id="inputDeck" placeholder="Insert Deck Name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                    <button id="submitAddDeck" type="button" class="btn btn-primary"
+                        data-dismiss="modal">CREATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/popper.js"></script>
