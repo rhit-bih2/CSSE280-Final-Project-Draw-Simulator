@@ -182,7 +182,7 @@ rhit.DetailPageController = class {
 		if (rhit.fbSingleDeckManager.author == rhit.fbAuthManager.uid) {
 			document.querySelector("#menuDelete").style.display = "flex";
 			document.querySelector("#deckNameText").contentEditable = "true";
-			for(let myElement of document.querySelectorAll(".deck-item")){
+			for (let myElement of document.querySelectorAll(".deck-item")) {
 				myElement.contentEditable = "true";
 			}
 			document.querySelector("#deck-add-btn").style.display = "flex";
@@ -242,7 +242,7 @@ rhit.FbSingleDeckManager = class {
 // ------ Main Helper ------
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
-		window.location.href = "/list.html";
+		window.location.href = '/list.html';
 	}
 
 	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
@@ -253,12 +253,18 @@ rhit.checkForRedirects = function () {
 
 rhit.initializePage = function () {
 	let params = new URLSearchParams(document.location.search);
+
+	if (document.querySelector("#loginPage")) {
+		console.log("You are on the login page.");
+		new rhit.LoginPageController();
+	}
+
 	if (document.querySelector("#listPage")) {
 		console.log("You are on the list page.");
 		const uid = params.get("uid");
 		console.log('uid :>> ', uid);
-		rhit.fbDecksManager = new rhit.FbDecksManager(uid);
-		new rhit.ListPageController();
+		// rhit.fbDecksManager = new rhit.FbDecksManager(uid);
+		// new rhit.ListPageController();
 	}
 
 	if (document.querySelector("#detailPage")) {
@@ -272,10 +278,6 @@ rhit.initializePage = function () {
 		new rhit.DetailPageController();
 	}
 
-	if (document.querySelector("#loginPage")) {
-		console.log("You are on the login page.");
-		new rhit.LoginPageController();
-	}
 };
 
 //------ Main------
