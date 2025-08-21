@@ -175,8 +175,23 @@ rhit.DetailPageController = class {
 
 		rhit.fbSingleDeckManager.beginListening(this.updateView.bind(this));
 	}
+
+	_createCard(name) {
+		return htmlToElement(`<li class="list-group-item deck-item" contenteditable="false">${name}</li>`)
+	}
+
 	updateView() {
 		document.querySelector("#deckNameText").innerHTML = rhit.fbSingleDeckManager.deckName;
+		const cards = rhit.fbSingleDeckManager.cards;
+		const newList = htmlToElement('<div id="deckItemContainer"></div>');
+		for (let cardName of cards) {
+			const newCard = this._createCard(cardName);
+			newList.appendChild(newCard);
+		}
+		const oldList = document.querySelector("#deckItemContainer");
+		oldList.removeAttribute("id");
+		oldList.hidden = true;
+		oldList.parentElement.appendChild(newList);
 		//TODO: update cards 
 
 		if (rhit.fbSingleDeckManager.author == rhit.fbAuthManager.uid) {
