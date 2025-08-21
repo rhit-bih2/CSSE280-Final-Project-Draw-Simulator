@@ -118,3 +118,14 @@ body {
 #removeCardHint{
     margin: auto 0 0 auto;
 }
+
+#simulatorPanel{
+    margin: 10px;
+}
+
+#targetNameInput{
+    width: 30%;
+}
+#runningTimeInput{
+    width: 3em;
+}
