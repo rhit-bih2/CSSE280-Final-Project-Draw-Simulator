@@ -53,7 +53,7 @@
       <div id="simulatorText">
         Target Card: <input id="targetNameInput" type="text">, Running <input id="runningTimeInput" type="number"> Time(s)
       </div>
-      <button id="runSimulationButton" type="button" class="btn">RUN</button>
+      <button id="runSimulationButton" type="button" class="btn" data-toggle="modal" data-target="#simulationResultDialog">RUN</button>
     </div>
   </div>
 
@@ -75,6 +75,21 @@
     </div>
   </div>
 
+  <div class="modal fade" id="simulationResultDialog" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Results</h5>
+        </div>
+        <div id="resultText" class="modal-body">
+          Simulation Running...
+        </div>
+        <div class="modal-footer">
+          <button id="submitDeleteDeck" type="button" class="btn btn-primary" data-dismiss="modal">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
   <script src="scripts/jquery.min.js"></script>

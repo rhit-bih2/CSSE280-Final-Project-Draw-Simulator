@@ -124,7 +124,7 @@ rhit.ListPageController = class {
 		  </div>
 		`);
 	}
-	
+
 	updateList() {
 		const newList = htmlToElement('<div id="deckListContainer"></div>');
 
@@ -234,7 +234,24 @@ rhit.DetailPageController = class {
 			});
 		};
 
+		document.querySelector("#runSimulationButton").onclick = (event) => {
+			const repeat = document.querySelector("#runningTimeInput").value;
+			const targetName = document.querySelector("#targetNameInput").value;
+			const cards = rhit.fbSingleDeckManager.cards;
+			let success = 0;
+			for (let i = 0; i < repeat; i++) {
+				let index = this._getRandomNumber(cards.length);
+				if(cards[index]==targetName) success++;
+			}
+			let output=`Runs: ${repeat}<br>${targetName} Drawn: ${success}, Probability: ${success/repeat}`;
+			document.querySelector("#resultText").innerHTML=output;
+		};
+
 		rhit.fbSingleDeckManager.beginListening(this.updateView.bind(this));
+	}
+
+	_getRandomNumber(maxValue) {
+		return Math.ceil(Math.random() * maxValue);
 	}
 
 	_createCard(name, index) {
