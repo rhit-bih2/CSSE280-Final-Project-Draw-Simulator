@@ -329,7 +329,7 @@ rhit.FbSingleDeckManager = class {
 // ------ Main Helper ------
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
-		window.location.href = `/list.html?uid=${rhit.fbAuthManager.uid}`;
+		window.location.href = '/list.html';
 	}
 
 	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
