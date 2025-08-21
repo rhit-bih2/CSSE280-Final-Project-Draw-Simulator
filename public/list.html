@@ -15,15 +15,35 @@
         <a class="navbar-brand" href="#">Deck Simulator</a>
     </nav>
 
-    <div id="listPage" class="container page-container">
-        <div id="deckListContainer">
-            <div id="EjoJ5jfQEok8O0JU6hsq" class="card">
-                <div id="deck-body" class="card-body">
-                    <h5 id="deck-title" class="card-title">BUNILLA!!!</h5>
-                    <h6 id="deck-subtitle" class="card-subtitle mb-2 text-muted">and Yummy</h6>
-                </div>
+    <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
+        <header class="bmd-layout-header">
+            <div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
+                <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
+                    <span class="sr-only">Toggle drawer</span>
+                    <i class="material-icons">menu</i>
+                </button>
+                <a class="navbar-brand" href="#">&nbsp;&nbsp;Draw-Simulator</a>
             </div>
+        </header>
+        <div id="dw-s2" class="bmd-layout-drawer bg-faded">
+            <header>
+                <a class="navbar-brand">Draw-Simulator</a>
+            </header>
+            <ul class="list-group">
+                <a id="menuShowAllQuotes" class="list-group-item"><i class="material-icons">people_alt</i>Show all
+                    decks</a>
+                <a id="menuShowMyQuotes" class="list-group-item"><i class="material-icons">person</i>Show my decks</a>
+                <a id="menuSignOut" class="list-group-item"><i class="material-icons">login</i>Sign out</a>
+            </ul>
         </div>
+        <main class="bmd-layout-content">
+            <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addQuoteDialog">
+                <i class="material-icons">add</i>
+            </button>
+            <div id="listPage" class="container page-container">
+                <div id="quoteListContainer"></div>
+            </div>
+        </main>
     </div>
 
     <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addQuoteDialog">
