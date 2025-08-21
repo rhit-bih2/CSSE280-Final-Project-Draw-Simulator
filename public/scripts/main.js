@@ -101,13 +101,45 @@ rhit.ListPageController = class {
 		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
 			const deckName = document.querySelector("#inputDeck").value;
 			rhit.fbDecksManager.add(deckName);
+			this._createCard(deckName);
 		});
 
 		rhit.fbDecksManager.beginListening(this.updateList.bind(this));
 	}
 
+	_createCard(deckName) {
+		return htmlToElement(`
+		  <div class="card">
+			<div class="card-body">
+			  <h5 class="card-title">${deckName}</h5>
+			  <h6 class="card-subtitle mb-2 text-muted">${rhit.FbAuthManager.uid}</h6>
+			</div>
+		  </div>
+		`);
+	}
+	
 	updateList() {
+		console.log("I need to update the list on the page!");
+		console.log(`Num decks = ${rhit.fbDecksManager.length}`);
+		console.log("Example deck = ", rhit.FbDecksManager.getDeckAtIndex(0));
 
+		const newList = htmlToElement('<div id="deckListContainer"></div>');
+
+		for (let i = 0; i < rhit.fbMovieQuotesManager.length; i++) {
+			const mq = rhit.FbDecksManager.getDeckAtIndex(i);
+			const newCard = this._createCard(mq);
+
+			newCard.onclick = (event) => {
+				window.location.href = `/moviequote.html?id=${mq.id}`;
+			};
+			newList.appendChild(newCard);
+		}
+
+		const oldList = document.querySelector("#deckListContainer");
+		oldList.removeAttribute("id");
+		oldList.hidden = true;
+
+		oldList.parentElement.appendChild(newList);
 	}
 }
 
