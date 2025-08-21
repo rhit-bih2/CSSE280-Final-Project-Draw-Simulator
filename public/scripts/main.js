@@ -95,7 +95,7 @@ rhit.ListPageController = class {
 		});
 
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
-			window.location.href = "/"
+			rhit.fbAuthManager.signOut();
 		});
 
 		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
