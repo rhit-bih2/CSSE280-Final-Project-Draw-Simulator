@@ -130,7 +130,7 @@ rhit.ListPageController = class {
 			const newCard = this._createCard(d);
 
 			newCard.onclick = (event) => {
-				window.location.href = `/moviequote.html?id=${d.id}`;
+				window.location.href = `/list.html?id=${d.id}`;
 			};
 			newList.appendChild(newCard);
 		}
