@@ -251,7 +251,7 @@ rhit.DetailPageController = class {
 	}
 
 	_getRandomNumber(maxValue) {
-		return Math.ceil(Math.random() * maxValue);
+		return Math.floor(Math.random() * maxValue);
 	}
 
 	_createCard(name, index) {
