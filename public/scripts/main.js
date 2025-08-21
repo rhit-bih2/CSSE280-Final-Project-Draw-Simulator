@@ -19,9 +19,10 @@ function htmlToElement(html) {
 
 // ------ Data class ------
 rhit.Deck = class {
-	constructor(author, deckName) {
-		this.author = author;
+	constructor(id, deckName, author) {
+		this.id = id;
 		this.deckName = deckName;
+		this.author = author;
 		this.cards = [];
 	}
 }
@@ -98,39 +99,41 @@ rhit.ListPageController = class {
 			rhit.fbAuthManager.signOut();
 		});
 
+		$("#addDeck").on("show.bs.modal", (event) => {
+			document.querySelector("#inputDeck").value = "";
+		});
+		$("#addDeck").on("shown.bs.modal", (event) => {
+			document.querySelector("#inputDeck").focus();
+		});
+
 		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
-			const deckName = document.querySelector("#inputDeck").deckName;
+			const deckName = document.querySelector("#inputDeck").value;
 			rhit.fbDecksManager.add(deckName);
-			this._createCard(deckName);
 		});
 
 		rhit.fbDecksManager.beginListening(this.updateList.bind(this));
 	}
 
-	_createCard(deckName) {
+	_createCard(deckName, author) {
 		return htmlToElement(`
-		  <div class="card">
+		  <div class="card deckListItem">
 			<div class="card-body">
 			  <h5 class="card-title">${deckName}</h5>
-			  <h6 class="card-subtitle mb-2 text-muted">${rhit.fbAuthManager.uid}</h6>
+			  <h6 class="card-subtitle mb-2 text-muted">${author}</h6>
 			</div>
 		  </div>
 		`);
 	}
 	
 	updateList() {
-		console.log("I need to update the list on the page!");
-		console.log(`Num decks = ${rhit.fbDecksManager.length}`);
-		console.log("Example deck = ", rhit.fbDecksManager.getDeckAtIndex(0));
-
 		const newList = htmlToElement('<div id="deckListContainer"></div>');
 
 		for (let i = 0; i < rhit.fbDecksManager.length; i++) {
 			const d = rhit.fbDecksManager.getDeckAtIndex(i);
-			const newCard = this._createCard(d);
+			const newCard = this._createCard(d.deckName, d.author);
 
 			newCard.onclick = (event) => {
-				window.location.href = `/list.html?id=${d.id}`;
+				window.location.href = `/detail.html?id=${d.id}`;
 			};
 			newList.appendChild(newCard);
 		}
@@ -196,6 +199,7 @@ rhit.FbDecksManager = class {
 		const deck = new rhit.Deck(
 			docSnapshot.id,
 			docSnapshot.get(rhit.FB_KEY_DECKNAME),
+			docSnapshot.get(rhit.FB_KEY_AUTHOR),
 			docSnapshot.get(rhit.FB_KEY_CARDS),
 		);
 		return deck;

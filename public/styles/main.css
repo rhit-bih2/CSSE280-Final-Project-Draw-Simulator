@@ -126,6 +126,18 @@ body {
 #targetNameInput{
     width: 30%;
 }
+
 #runningTimeInput{
     width: 3em;
+}
+
+#runSimulationButton{
+    margin: 10px 0;
+    color: white;
+    background-color: #800000;
+    width: 100%;
+}
+
+.deckListItem{
+    margin: 10px 0;
 }
