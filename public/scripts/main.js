@@ -270,7 +270,7 @@ rhit.initializePage = function () {
 	}
 };
 
-// // ------ Main------
+//------ Main------
 rhit.main = function () {
 	console.log("Ready");
 	rhit.fbAuthManager = new rhit.FbAuthManager();
