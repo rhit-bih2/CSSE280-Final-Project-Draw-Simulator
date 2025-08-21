@@ -98,10 +98,10 @@ rhit.ListPageController = class {
 			rhit.fbAuthManager.signOut();
 		});
 
-		// document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
-		// 	const deckName = document.querySelector("#inputDeckName").value;
-		// 	rhit.fbDecksManager.add(deckName);
-		// });
+		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
+			const deckName = document.querySelector("#inputDeck").value;
+			rhit.fbDecksManager.add(deckName);
+		});
 
 		rhit.fbDecksManager.beginListening(this.updateList.bind(this));
 	}
