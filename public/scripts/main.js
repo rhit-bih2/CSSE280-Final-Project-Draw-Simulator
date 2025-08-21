@@ -162,6 +162,8 @@ rhit.DetailPageController = class {
 			rhit.fbAuthManager.signOut();
 		};
 
+		//TODO: update
+
 		document.querySelector("#submitDeleteDeck").onclick = (event) => {
 			rhit.fbSingleDeckManager.delete().then(function () {
 				console.log("Document successfully deleted");
@@ -175,9 +177,15 @@ rhit.DetailPageController = class {
 	}
 	updateView() {
 		document.querySelector("#deckNameText").innerHTML = rhit.fbSingleDeckManager.deckName;
+		//TODO: update cards 
 
 		if (rhit.fbSingleDeckManager.author == rhit.fbAuthManager.uid) {
 			document.querySelector("#menuDelete").style.display = "flex";
+			document.querySelector("#deckNameText").contentEditable = "true";
+			for(let myElement of document.querySelectorAll(".deck-item")){
+				myElement.contentEditable = "true";
+			}
+			document.querySelector("#deck-add-btn").style.display = "flex";
 		}
 	}
 }
@@ -231,7 +239,7 @@ rhit.FbSingleDeckManager = class {
 	}
 }
 
-// // ------ Main Helper ------
+// ------ Main Helper ------
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/list.html";
@@ -249,18 +257,18 @@ rhit.initializePage = function () {
 		console.log("You are on the list page.");
 		const uid = params.get("uid");
 		console.log('uid :>> ', uid);
-		rhit.fbDecksManager = new rhit.FbMovieQuotesManager(uid);
+		rhit.fbDecksManager = new rhit.FbDecksManager(uid);
 		new rhit.ListPageController();
 	}
 
 	if (document.querySelector("#detailPage")) {
 		console.log("You are on the detail page.");
-		const movieQuoteId = params.get("id");
-		if (!movieQuoteId) {
-			console.log("Error: Missing movie quote id!");
+		const deckId = params.get("id");
+		if (!deckId) {
+			console.log("Error: Missing deck id!");
 			window.localStorage.href = "/";
 		}
-		rhit.fbSingleQuoteManager = new rhit.FbSingleQuoteManager(movieQuoteId);
+		rhit.fbSingleDeckManager = new rhit.FbSingleDeckManager(deckId);
 		new rhit.DetailPageController();
 	}
 
@@ -276,7 +284,8 @@ rhit.main = function () {
 	rhit.fbAuthManager = new rhit.FbAuthManager();
 	rhit.fbAuthManager.beginListening(() => {
 		console.log('isSignedIn :>> ', rhit.fbAuthManager.isSignedIn);
-		// rhit.checkForRedirects();
+		console.log('uid: ', rhit.fbAuthManager.uid);
+		rhit.checkForRedirects();
 		rhit.initializePage();
 	});
 };
