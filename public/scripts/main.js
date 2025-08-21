@@ -346,7 +346,7 @@ rhit.initializePage = function () {
 		console.log("You are on the list page.");
 		const uid = params.get("uid");
 		console.log('uid :>> ', uid);
-		// rhit.fbDecksManager = new rhit.FbDecksManager(uid);
+		rhit.fbDecksManager = new rhit.FbDecksManager(uid);
 		new rhit.ListPageController();
 	}
 
