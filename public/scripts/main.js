@@ -158,11 +158,19 @@ rhit.FbDecksManager = class {
 // ------ Detail Page------
 rhit.DetailPageController = class {
 	constructor() {
+
 		document.querySelector("#menuSignOut").onclick = (event) => {
 			rhit.fbAuthManager.signOut();
 		};
 
-		//TODO: update
+		document.querySelector("#deckNameText").addEventListener('blur', function () {
+			const deckName = this.innerHTML;
+			rhit.fbSingleDeckManager.updateDeckName(deckName);
+		});
+
+		document.querySelector("#addCardButton").onclick = (event) => {
+			rhit.fbSingleDeckManager.addCard("New Card");
+		};
 
 		document.querySelector("#submitDeleteDeck").onclick = (event) => {
 			rhit.fbSingleDeckManager.delete().then(function () {
@@ -176,29 +184,40 @@ rhit.DetailPageController = class {
 		rhit.fbSingleDeckManager.beginListening(this.updateView.bind(this));
 	}
 
-	_createCard(name) {
-		return htmlToElement(`<li class="list-group-item deck-item" contenteditable="false">${name}</li>`)
+	_createCard(name, index) {
+		const newCard = htmlToElement(`<li class="list-group-item deck-item" contenteditable="false">${name}</li>`);
+		newCard.addEventListener('blur', function () {
+			const regex = /^(?:\s|<br>)+$/;
+			let newCardName = (this.innerHTML).replace(regex, "!D$E$L$E$T$E!");
+			let cardsData = rhit.fbSingleDeckManager.cards;
+			cardsData[index] = newCardName;
+			rhit.fbSingleDeckManager.updateCards(cardsData);
+			if(newCardName.includes("!D$E$L$E$T$E!") || newCardName==""){
+				rhit.fbSingleDeckManager.removeCard(newCardName);
+			}
+		});
+		return newCard;
 	}
 
 	updateView() {
 		document.querySelector("#deckNameText").innerHTML = rhit.fbSingleDeckManager.deckName;
 		const cards = rhit.fbSingleDeckManager.cards;
 		const newList = htmlToElement('<div id="deckItemContainer"></div>');
-		for (let cardName of cards) {
-			const newCard = this._createCard(cardName);
+		for (let i = 0; i < cards.length; i++) {
+			let cardName = cards[i];
+			const newCard = this._createCard(cardName, i);
 			newList.appendChild(newCard);
 		}
 		const oldList = document.querySelector("#deckItemContainer");
 		oldList.removeAttribute("id");
 		oldList.hidden = true;
 		oldList.parentElement.appendChild(newList);
-		//TODO: update cards 
 
 		if (rhit.fbSingleDeckManager.author == rhit.fbAuthManager.uid) {
 			document.querySelector("#menuDelete").style.display = "flex";
 			document.querySelector("#deckNameText").contentEditable = "true";
-			for (let myElement of document.querySelectorAll(".deck-item")) {
-				myElement.contentEditable = "true";
+			for (let card of document.querySelectorAll(".deck-item")) {
+				card.contentEditable = "plaintext-only";
 			}
 			document.querySelector("#deck-add-btn").style.display = "flex";
 		}
@@ -227,10 +246,9 @@ rhit.FbSingleDeckManager = class {
 		this._unsubscribe();
 	}
 
-	update(name, cards) {
+	updateDeckName(deckName) {
 		this._ref.update({
-			[rhit.FB_KEY_DECKNAME]: name,
-			[rhit.FB_KEY_CARDS]: cards,
+			[rhit.FB_KEY_DECKNAME]: deckName
 		})
 			.then(() => {
 				console.log("Document successfully updated");
@@ -239,6 +257,43 @@ rhit.FbSingleDeckManager = class {
 				console.error("Error updating document: ", error);
 			});
 	}
+
+	updateCards(cards) {
+		this._ref.update({
+			[rhit.FB_KEY_CARDS]: cards
+		})
+			.then(() => {
+				console.log("Document successfully updated");
+			})
+			.catch(function (error) {
+				console.error("Error updating document: ", error);
+			});
+	}
+
+	addCard(cardName) {
+		this._ref.update({
+			[rhit.FB_KEY_CARDS]: firebase.firestore.FieldValue.arrayUnion(cardName)
+		})
+			.then(() => {
+				console.log("Document successfully updated");
+			})
+			.catch(function (error) {
+				console.error("Error updating document: ", error);
+			});
+	}
+
+	removeCard(cardName) {
+		this._ref.update({
+			[rhit.FB_KEY_CARDS]: firebase.firestore.FieldValue.arrayRemove(cardName)
+		})
+			.then(() => {
+				console.log("Document successfully updated");
+			})
+			.catch(function (error) {
+				console.error("Error updating document: ", error);
+			});
+	}
+
 	delete() {
 		return this._ref.delete();
 	}
