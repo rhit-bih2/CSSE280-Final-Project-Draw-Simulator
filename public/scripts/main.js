@@ -347,7 +347,7 @@ rhit.initializePage = function () {
 		const uid = params.get("uid");
 		console.log('uid :>> ', uid);
 		// rhit.fbDecksManager = new rhit.FbDecksManager(uid);
-		// new rhit.ListPageController();
+		new rhit.ListPageController();
 	}
 
 	if (document.querySelector("#detailPage")) {
