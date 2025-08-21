@@ -98,27 +98,31 @@ rhit.ListPageController = class {
 			rhit.fbAuthManager.signOut();
 		});
 
-		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
-			const Deck = document.querySelector("#inputDeck").value;
-			rhit.fbMovieDecksManager.add(Deck);
-		});
+		// document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
+		// 	const deckName = document.querySelector("#inputDeckName").value;
+		// 	rhit.fbDecksManager.add(deckName);
+		// });
+
+		rhit.fbDecksManager.beginListening(this.updateList.bind(this));
 	}
-	updateList() { }
+
+	updateList() {
+
+	}
 }
 
 rhit.FbDecksManager = class {
 	constructor(uid) {
 		this._uid = uid;
 		this._documentSnapshots = [];
-		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTE);
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_DECKS);
 		this._unsubscribe = null;
 	}
-	add(quote, movie) {
+	add(deckName) {
 		this._ref.add({
-			[rhit.FB_KEY_QUOTE]: quote,
-			[rhit.FB_KEY_MOVIE]: movie,
+			[rhit.FB_KEY_DECKNAME]: deckName,
 			[rhit.FB_KEY_AUTHOR]: rhit.fbAuthManager.uid,
-			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+			[rhit.FB_KEY_CARDS]: [],
 		})
 			.then(function (docRef) {
 				console.log("Document written with ID: ", docRef.id);
@@ -129,7 +133,7 @@ rhit.FbDecksManager = class {
 	}
 	beginListening(changeListener) {
 
-		let query = this._ref.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc").limit(50);
+		let query = this._ref.orderBy(rhit.FB_KEY_DECKNAME, "desc").limit(50);
 		if (this._uid) {
 			query = query.where(rhit.FB_KEY_AUTHOR, "==", this._uid);
 		}
@@ -155,14 +159,14 @@ rhit.FbDecksManager = class {
 	get length() {
 		return this._documentSnapshots.length;
 	}
-	getMovieQuoteAtIndex(index) {
+	getDeckAtIndex(index) {
 		const docSnapshot = this._documentSnapshots[index];
-		const mq = new rhit.MovieQuote(
+		const deck = new rhit.Deck(
 			docSnapshot.id,
-			docSnapshot.get(rhit.FB_KEY_QUOTE),
-			docSnapshot.get(rhit.FB_KEY_MOVIE),
+			docSnapshot.get(rhit.FB_KEY_DECKNAME),
+			docSnapshot.get(rhit.FB_KEY_CARDS),
 		);
-		return mq;
+		return deck;
 	}
 }
 
@@ -325,7 +329,7 @@ rhit.FbSingleDeckManager = class {
 // ------ Main Helper ------
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
-		window.location.href = '/list.html';
+		window.location.href = `/list.html?uid=${rhit.fbAuthManager.uid}`;
 	}
 
 	if (!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
@@ -346,7 +350,7 @@ rhit.initializePage = function () {
 		console.log("You are on the list page.");
 		const uid = params.get("uid");
 		console.log('uid :>> ', uid);
-		// rhit.fbDecksManager = new rhit.FbDecksManager(uid);
+		rhit.fbDecksManager = new rhit.FbDecksManager(uid);
 		new rhit.ListPageController();
 	}
 
