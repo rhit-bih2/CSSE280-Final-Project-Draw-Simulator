@@ -34,18 +34,37 @@
             </ul>
         </div>
         <main class="bmd-layout-content">
-            <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addQuoteDialog">
-                <i class="material-icons">add</i>
-            </button>
             <div id="listPage" class="container page-container">
-                <div id="quoteListContainer"></div>
+                <div id="DeckListContainer"></div>
             </div>
         </main>
     </div>
 
-    <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addQuoteDialog">
+    <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addDeck">
         <i class="material-icons">add</i>
     </button>
+
+    <div class="modal fade" id="addDeck" tabindex="-1" role="dialog" aria-labelledby="Add deck"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Deck</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group bmd-form-group">
+                        <label for="inputDeck">Deck</label>
+                        <input type="text" class="form-control" id="inputDeck" placeholder="Example input">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                    <button id="submitAddDeck" type="button" class="btn btn-primary"
+                        data-dismiss="modal">CREATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/popper.js"></script>
