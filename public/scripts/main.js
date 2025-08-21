@@ -85,6 +85,19 @@ rhit.FbAuthManager = class {
 // ------ List Page------
 rhit.ListPageController = class {
 	constructor() {
+
+		document.querySelector("#menuShowAllDecks").addEventListener("click", (event) => {
+			window.location.href("/list.html")
+		});
+
+		document.querySelector("#menuShowMyDecks").addEventListener("click", (event) => {
+			window.location.href = `/list.html?uid=${rhit.fbAuthManager.uid}`;
+		});
+
+		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
+			rhit.fbAuthManager.signOut();
+		});
+
 		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
 			const Deck = document.querySelector("#inputDeck").value;
 			rhit.fbMovieDecksManager.add(Deck);
@@ -192,7 +205,7 @@ rhit.DetailPageController = class {
 			let cardsData = rhit.fbSingleDeckManager.cards;
 			cardsData[index] = newCardName;
 			rhit.fbSingleDeckManager.updateCards(cardsData);
-			if(newCardName.includes("!D$E$L$E$T$E!") || newCardName==""){
+			if (newCardName.includes("!D$E$L$E$T$E!") || newCardName == "") {
 				rhit.fbSingleDeckManager.removeCard(newCardName);
 			}
 		});
