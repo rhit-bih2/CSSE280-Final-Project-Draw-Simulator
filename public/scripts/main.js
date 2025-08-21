@@ -87,7 +87,7 @@ rhit.ListPageController = class {
 	constructor() {
 
 		document.querySelector("#menuShowAllDecks").addEventListener("click", (event) => {
-			window.location.href("/list.html")
+			window.location.href = "/list.html"
 		});
 
 		document.querySelector("#menuShowMyDecks").addEventListener("click", (event) => {
@@ -95,7 +95,7 @@ rhit.ListPageController = class {
 		});
 
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
-			rhit.fbAuthManager.signOut();
+			window.location.href = "/"
 		});
 
 		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
