@@ -99,7 +99,7 @@ rhit.ListPageController = class {
 		});
 
 		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
-			const deckName = document.querySelector("#inputDeck").value;
+			const deckName = document.querySelector("#inputDeck").deckName;
 			rhit.fbDecksManager.add(deckName);
 			this._createCard(deckName);
 		});
