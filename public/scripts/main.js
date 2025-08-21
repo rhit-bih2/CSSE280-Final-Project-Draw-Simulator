@@ -284,7 +284,6 @@ rhit.main = function () {
 	rhit.fbAuthManager = new rhit.FbAuthManager();
 	rhit.fbAuthManager.beginListening(() => {
 		console.log('isSignedIn :>> ', rhit.fbAuthManager.isSignedIn);
-		console.log('uid: ', rhit.fbAuthManager.uid);
 		rhit.checkForRedirects();
 		rhit.initializePage();
 	});
