@@ -64,21 +64,22 @@ body {
   cursor: pointer;
 }
 
-.list-group-item.deck-add-btn {
+#deck-add-btn {
   padding: 0.5rem 1rem;
   text-align: center;
   border-bottom: none;
 }
 
-.add-button-plus {
+#addCardButton {
   font-size: 1.5rem;
   font-weight: 300;
-  color: #6c757d;
+  color: #800000;
   text-decoration: none;
   display: block;
+  padding-left: 10px;
 }
 
-.add-button-plus:hover {
+#addCardButton:hover {
   color: #343a40;
 }
 
@@ -92,8 +93,24 @@ body {
     display: block;
     margin: 60px auto;
     color: white;
-    background: #800000;
     font-size: 1.1em;
+    background: #800000;
     padding: 10px 30px;
     border-radius: 5px;
 }
+
+.textInputContainer{
+    display: inline-block;
+}
+
+#cardList{
+    min-width: 100%;
+}
+
+#cardContainer{
+    padding: 0;
+}
+
+/* #saveButton{
+    margin: 0 0 0 auto;
+} */

@@ -33,18 +33,22 @@
 
   <div id="detailPage" class="container page-container">
     <div id="cardList" class="card" style="max-width: 300px;">
-      <div class="card-header">
-        Cards in Deck
+      <div class="textInputContainer">
+        <div class="card-header" contenteditable="true">
+          Deck Name
+        </div>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item deck-item">Bunilla</li>
-        <li class="list-group-item deck-item">Bunilla</li>
-        <li class="list-group-item deck-item">Bunilla</li>
-        <li class="list-group-item text-center deck-add-btn">
-          <a href="#" class="add-button-plus">+</a>
+      <ul id="cardContainer" class="list-group list-group-flush textInputContainer">
+        <li class="list-group-item deck-item" contenteditable="true">Bunilla</li>
+        <li class="list-group-item deck-item" contenteditable="true">Bunilla</li>
+        <li class="list-group-item deck-item" contenteditable="true">Bunilla</li>
+        <li id="deck-add-btn" class="list-group-item text-center">
+          <a id="addCardButton" href="#">+</a>
+          <!-- <button id="saveButton" class="btn btn-outline-success active">Save</button> -->
         </li>
       </ul>
     </div>
+    
   </div>
 
   <!-- Modal -->
@@ -64,6 +68,8 @@
       </div>
     </div>
   </div>
+
+
 
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
