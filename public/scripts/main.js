@@ -10,9 +10,6 @@ rhit.fbAuthManager = null;
 rhit.fbDecksManager = null;
 rhit.fbSingleDeckManager = null;
 
-
-
-
 function htmlToElement(html) {
 	var template = document.createElement('template');
 	html = html.trim();
@@ -20,7 +17,7 @@ function htmlToElement(html) {
 	return template.content.firstChild;
 }
 
-//Data Class
+// ------ Data class ------
 rhit.Deck = class {
 	constructor(author, deckName) {
 		this.author = author;
@@ -29,7 +26,7 @@ rhit.Deck = class {
 	}
 }
 
-//LoginPage
+// ------ Login Page------
 rhit.LoginPageController = class {
 	constructor() {
 		document.querySelector("#rosefireButton").onclick = (event) => {
@@ -85,7 +82,7 @@ rhit.FbAuthManager = class {
 
 
 
-//ListPage
+// ------ List Page------
 rhit.ListPageController = class {
 	constructor() {
 		document.querySelector("#submitAddDeck").addEventListener("click", (event) => {
@@ -158,7 +155,7 @@ rhit.FbDecksManager = class {
 
 
 
-//DetailPage
+// ------ Detail Page------
 rhit.DetailPageController = class {
 	constructor() {
 		document.querySelector("#menuSignOut").onclick = (event) => {
@@ -234,7 +231,7 @@ rhit.FbSingleDeckManager = class {
 	}
 }
 
-
+// // ------ Main Helper ------
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
 		window.location.href = "/list.html";
@@ -252,7 +249,7 @@ rhit.initializePage = function () {
 		console.log("You are on the list page.");
 		const uid = params.get("uid");
 		console.log('uid :>> ', uid);
-		rhit.fbMovieQuotesManager = new rhit.FbMovieQuotesManager(uid);
+		rhit.fbDecksManager = new rhit.FbMovieQuotesManager(uid);
 		new rhit.ListPageController();
 	}
 
@@ -273,8 +270,7 @@ rhit.initializePage = function () {
 	}
 };
 
-/* Main */
-/** function and class syntax examples */
+// // ------ Main------
 rhit.main = function () {
 	console.log("Ready");
 	rhit.fbAuthManager = new rhit.FbAuthManager();
