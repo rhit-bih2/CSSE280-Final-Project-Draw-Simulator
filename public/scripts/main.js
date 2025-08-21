@@ -20,7 +20,7 @@ function htmlToElement(html) {
 	return template.content.firstChild;
 }
 
-//Data Classes
+//Data Class
 rhit.Deck = class {
 	constructor(author, deckName) {
 		this.author = author;
@@ -165,23 +165,8 @@ rhit.DetailPageController = class {
 			rhit.fbAuthManager.signOut();
 		};
 
-		document.querySelector("#submitEditQuote").onclick = (event) => {
-			const quote = document.querySelector("#inputQuote").value;
-			const movie = document.querySelector("#inputMovie").value;
-			rhit.fbSingleQuoteManager.update(quote, movie);
-		};
-
-		$("#editQuoteDialog").on("show.bs.modal", (event) => {
-			document.querySelector("#inputQuote").value = rhit.fbSingleQuoteManager.quote;
-			document.querySelector("#inputMovie").value = rhit.fbSingleQuoteManager.movie;
-		});
-
-		$("#editQuoteDialog").on("shown.bs.modal", (event) => {
-			document.querySelector("#inputQuote").focus();
-		});
-
-		document.querySelector("#submitDeleteQuote").onclick = (event) => {
-			rhit.fbSingleQuoteManager.delete().then(function () {
+		document.querySelector("#submitDeleteDeck").onclick = (event) => {
+			rhit.fbSingleDeckManager.delete().then(function () {
 				console.log("Document successfully deleted");
 				window.location.href = "/list.html";
 			}).catch(function (error) {
@@ -189,25 +174,22 @@ rhit.DetailPageController = class {
 			});
 		};
 
-		rhit.fbSingleQuoteManager.beginListening(this.updateView.bind(this));
+		rhit.fbSingleDeckManager.beginListening(this.updateView.bind(this));
 	}
 	updateView() {
-		document.querySelector("#cardQuote").innerHTML = rhit.fbSingleQuoteManager.quote;
-		document.querySelector("#cardMovie").innerHTML = rhit.fbSingleQuoteManager.movie;
+		document.querySelector("#deckNameText").innerHTML = rhit.fbSingleDeckManager.deckName;
 
-		if (rhit.fbSingleQuoteManager.author == rhit.fbAuthManager.uid) {
-			document.querySelector("#menuEdit").style.display = "flex";
+		if (rhit.fbSingleDeckManager.author == rhit.fbAuthManager.uid) {
 			document.querySelector("#menuDelete").style.display = "flex";
 		}
-
 	}
 }
 
 rhit.FbSingleDeckManager = class {
-	constructor(movieQuoteId) {
+	constructor(deckId) {
 		this._documentSnapshot = {};
 		this._unsubscribe = null;
-		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTE).doc(movieQuoteId);
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_DECKS).doc(deckId);
 	}
 	beginListening(changeListener) {
 		this._unsubscribe = this._ref.onSnapshot((doc) => {
@@ -225,11 +207,10 @@ rhit.FbSingleDeckManager = class {
 		this._unsubscribe();
 	}
 
-	update(quote, movie) {
+	update(name, cards) {
 		this._ref.update({
-			[rhit.FB_KEY_QUOTE]: quote,
-			[rhit.FB_KEY_MOVIE]: movie,
-			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+			[rhit.FB_KEY_DECKNAME]: name,
+			[rhit.FB_KEY_CARDS]: cards,
 		})
 			.then(() => {
 				console.log("Document successfully updated");
@@ -242,11 +223,11 @@ rhit.FbSingleDeckManager = class {
 		return this._ref.delete();
 	}
 
-	get quote() {
-		return this._documentSnapshot.get(rhit.FB_KEY_QUOTE);
+	get cards() {
+		return this._documentSnapshot.get(rhit.FB_KEY_CARDS);
 	}
-	get movie() {
-		return this._documentSnapshot.get(rhit.FB_KEY_MOVIE);
+	get deckName() {
+		return this._documentSnapshot.get(rhit.FB_KEY_DECKNAME);
 	}
 	get author() {
 		return this._documentSnapshot.get(rhit.FB_KEY_AUTHOR);

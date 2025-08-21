@@ -114,3 +114,7 @@ body {
 /* #saveButton{
     margin: 0 0 0 auto;
 } */
+
+#menuDelete{
+    display: none;
+}
