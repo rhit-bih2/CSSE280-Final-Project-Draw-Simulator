@@ -243,7 +243,7 @@ rhit.DetailPageController = class {
 				let index = this._getRandomNumber(cards.length);
 				if(cards[index]==targetName) success++;
 			}
-			let output=`Runs: ${repeat}<br>${targetName} Drawn: ${success}, Probability: ${success/repeat}`;
+			let output=`Runs: ${repeat}<br>${targetName} Drawn: ${success}, Probability: ${((success/repeat) * 100).toFixed(2) + '%'}`;
 			document.querySelector("#resultText").innerHTML=output;
 		};
 
